@@ -31,11 +31,15 @@ with st.sidebar:
         value=[min_date, max_date]
     )
 
-filter_day = df_day[(df_day["dteday"] >= str(dates[0])) & 
+try:
+    filter_day = df_day[(df_day["dteday"] >= str(dates[0])) & 
                     (df_day["dteday"] <= str(dates[1]))]
 
-filter_hour = df_hour[(df_hour["dteday"] >= str(dates[0])) & 
+    filter_hour = df_hour[(df_hour["dteday"] >= str(dates[0])) & 
                     (df_hour["dteday"] <= str(dates[1]))]
+except IndexError:
+    filter_day = df_day
+    filter_hour = df_hour
 
 #mengatur dataframe 
 tenants_hour = dataframe.bike_rental_hour(filter_hour)
